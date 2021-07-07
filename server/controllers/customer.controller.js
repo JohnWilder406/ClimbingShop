@@ -1,8 +1,13 @@
 const Customers = require("../models/customer.model");
 
 module.exports.createCustomer = (req,res) => {
-    const {} = req.body;
+    const {firstName, lastName, email, address, orders} = req.body;
     Customers.create({
+        firstName,
+        lastName,
+        email,
+        address,
+        orders
     })
         .then(customer => res.json(customer))
         .catch(err => res.json(err))

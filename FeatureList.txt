@@ -1,0 +1,24 @@
+Bodie's Climbing Shop Feature List
+
+The goal for this project is to build an employee interface for navigating existing customers, adding new ones, editing existing ones and placing orders in addition to being able to add products and edit those products. I've got some stretch goals with this product by adding 
+a customer portal, but after finishing the main wireframe, it feels like a big stretch. I may also have to hardcode the products database depending on timing and just focus on the customer management interface. I've built about 11 full stack projects at this point and integrated
+almost all of these features into working projects at this point, so I feel like I can make this all happen. My biggest challenge here will be operating multiple functional databases- I haven't quite successfully navigated this part yet which is why I may have to abandon it 
+depending on timing and execution.
+
+Features:
+Login and Registration Pages with conditional rendering validations in red. Required fields will have an asterix and I'll make sure to properly validate emails. Passwords will be 8 char min, names will be 5 chars throughout app.
+CRUD Operations for both customers and products.
+Favorite order feature (this one may be tricky- we never really did what I'm planning to do with this feature in MERN, but I'm pretty sure I can make it happen)
+Non-logged in users may not access other pages in the app
+Customer Names will be validated as unique
+Customer lists will be sorted alphabetically on Main Page
+Product Lists will be sorted alphabetically on Product DB pages
+Will be using React Bootstrap
+
+Since I can't really do the file upload or API for this project, I'll do my best to make it responsive and deploy it upon completion.
+
+Github Repo:
+https://github.com/JohnWilder406/ClimbingShop.git
+
+WireFrame Link:
+https://share.balsamiq.com/c/aeuBU6B3f8cCEnMwjtDsz4.png
