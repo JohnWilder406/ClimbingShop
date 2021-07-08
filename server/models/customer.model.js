@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {conn1} = require('../config/mongoose.config')
 const uniqueValidator = require('mongoose-unique-validator');
 
 const OrderSchema = new mongoose.Schema({
@@ -18,12 +19,12 @@ const CustomerSchema = new mongoose.Schema({
         unique: true,
         uniqueCaseInsensitive: true,
         required: [true, "First name is required"],
-        minLength: [5, "First name must be at least five characters"]
+        minLength: [3, "First name must be at least five characters"]
     },
     lastName: {
         type: String,
         required: [true, "Last name is required"],
-        minLength: [5, "Last name must be at least five characters"]
+        minLength: [3, "Last name must be at least five characters"]
     },
     email: {
         type: String,
@@ -44,4 +45,8 @@ const CustomerSchema = new mongoose.Schema({
 
 CustomerSchema.plugin(uniqueValidator, {message: 'Error, name must be unique'});
 
-module.exports = mongoose.model('Customers', CustomerSchema)
+const customerModel = conn1.model('Customers', CustomerSchema)
+
+module.exports = customerModel;
+
+// module.exports = mongoose.model('Customers', CustomerSchema)
