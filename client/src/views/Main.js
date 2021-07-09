@@ -46,7 +46,7 @@ const Main = (props) => {
                     {
                         customers.map((customer, idx) => {
                             return (
-                                <tr key={idx}><td>{customer.firstName +' '+ customer.lastName}</td><td>{customer.orders.length}</td><td><Button>New Order</Button><Button variant="none"><Link to={'/customers/' + customer._id + '/history'}>View Orders</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/edit'}>Edit Customer</Link></Button></td></tr>
+                                <tr key={idx}><td>{customer.firstName +' '+ customer.lastName}</td><td>{customer.orders.length}</td><td><Button variant="none"><Link to={'/customers/' + customer._id + '/new_order'}>New Order</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/history'}>View Orders</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/edit'}>Edit Customer</Link></Button></td></tr>
                             )
                         })
                     }

@@ -30,7 +30,7 @@ const AddProduct = (props) => {
 
     return (
         <Container>
-            <ModularForm customer={product} setCustomer={setProduct} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Product"} />
+            <ModularForm object={product} setObject={setProduct} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Product"} inventory={true}/>
         </Container>
     )
 }

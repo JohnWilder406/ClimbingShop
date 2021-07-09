@@ -24,9 +24,8 @@ const Products = (props) => {
                 <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/products/add">Add Product</Nav.Link>
-                    <Nav.Link href="">New Order</Nav.Link>
-                    {/* <Nav.Link href="/products">Product Database</Nav.Link>
-                    <Logout /> */}
+                    <Nav.Link href="/main">Customer Database</Nav.Link>
+                    <Logout />
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -47,7 +46,7 @@ const Products = (props) => {
                     {
                         products.map((product, idx) => {
                             return (
-                                <tr key={idx}><td>{product.name}</td><td>{product.price}</td><td>{product.description}</td><td><Button>Edit</Button></td></tr>
+                                <tr key={idx}><td>{product.name}</td><td>{product.price}</td><td>{product.description}</td><td><Button variant="none"><Link to={'/products/' + product._id + '/edit'}>Edit</Link></Button></td></tr>
                             )
                         })
                     }

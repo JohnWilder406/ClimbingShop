@@ -2,15 +2,22 @@ import React from 'react';
 import {Button, Container, Form, Row, Col} from 'react-bootstrap'
 
 const ModularForm = (props) => {
-    const {customer, setCustomer, errors, handleSubmit, submitLabel} = props;
+    const {object, setObject, errors, handleSubmit, submitLabel, inventory} = props;
 
     const inputChange = (e) => {
-        let newCustomer = { ...customer};
+        let newObject = { ...object};
         console.log(e.target.name)
-        newCustomer[e.target.name] = e.target.value;
-        setCustomer(newCustomer)
+        newObject[e.target.name] = e.target.value;
+        setObject(newObject)
     }
 
+    const nameHandler = () => {
+        if(inventory) {
+            return errors.name.message
+        } else {
+            return errors.firstName.message
+        }
+    }
     console.log(errors)
 
     return (
@@ -20,17 +27,18 @@ const ModularForm = (props) => {
                 <Col>
                     <Form.Group className="mb-3">
                         <Form.Label column sm={4}>
-                            First Name:
+                            {inventory ? "Product Name" : "First Name"}
                         </Form.Label>
                         <Col sm={10}>
                             <Form.Control
                                 type="text"
-                                name="firstName"
-                                value={customer.firstName}
+                                name={inventory ? "name" : "firstName"}
+                                value={inventory ? object.name : object.firstName}
                                 onChange={(e) => inputChange(e)} />
                             {
-                                errors.name ? 
-                                <span className="error">{errors.firstName.message}</span> : null
+                                errors.firstName ? <span className="error">{errors.firstName.message}</span> : 
+                                errors.name ? <span className="error">{errors.name.message}</span> : null
+                                
                             }
                         </Col>
                     </Form.Group>
@@ -38,17 +46,17 @@ const ModularForm = (props) => {
                 <Col>
                     <Form.Group className="mb-3">
                         <Form.Label column sm={4}>
-                            Last Name:
+                            {inventory ? "Price" : "Last Name"}
                         </Form.Label>
                         <Col sm={10}>
                             <Form.Control
-                                type="text"
-                                name="lastName"
-                                value={customer.lastName}
+                                type={inventory ? "number" : "text"}
+                                name={inventory ? "price" : "lastName"}
+                                value={inventory ? object.price : object.lastName}
                                 onChange={(e) => inputChange(e)} />
                                 {
-                                errors.type ? 
-                                <span className="error">{errors.lastName.message}</span> : null
+                                errors.lastName ? <span className="error">{errors.lastName.message}</span> : 
+                                errors.price ? <span className="error">{errors.price.message}</span> : null
                             }
                         </Col>
                     </Form.Group>
@@ -58,22 +66,23 @@ const ModularForm = (props) => {
                 <Col>
                     <Form.Group className="mb-3" >
                     <Form.Label column sm={2}>
-                        Email Address:
+                        {inventory ? "Description" : "Email Address"}
                     </Form.Label>
                     <Col sm={10}>
                         <Form.Control
                             type="text"
-                            name="email"
-                            value={customer.email}
+                            name={inventory ? "description" : "email"}
+                            value={inventory ? object.description : object.email}
                             onChange={(e) => inputChange(e)} />
                             {
-                                errors.type ? 
-                                <span className="error">{errors.email.message}</span> : null
+                                errors.description ? <span className="error">{errors.description.message}</span> :
+                                errors.email ? <span className="error">{errors.email.message}</span> : null
                             }
                 </Col>
                     </Form.Group>
                 </Col>
                 <Col>
+                {inventory ? null : 
                     <Form.Group className="mb-3">
                     <Form.Label column sm={4}>
                         Address:
@@ -82,7 +91,7 @@ const ModularForm = (props) => {
                         <Form.Control
                             type="textarea"
                             name="address"
-                            value={customer.address}
+                            value={object.address}
                             onChange={(e) => inputChange(e)} />
                             {
                                 errors.type ? 
@@ -90,6 +99,7 @@ const ModularForm = (props) => {
                             }
                     </Col>
                     </Form.Group>
+                }
                 </Col>
             </Row>
             <Form.Group as={Row}>

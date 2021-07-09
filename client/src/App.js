@@ -10,6 +10,8 @@ import EditCustomer from './views/EditCustomer';
 import CustomerDetail from './components/CustomerDetail';
 import Products from './views/Products';
 import AddProduct from './views/AddProduct';
+import EditProduct from './views/EditProduct';
+import NewOrder from './components/NewOrder';
 
 function App() {
   const [token, setToken] = useState(false);
@@ -32,8 +34,10 @@ function App() {
         <AddCustomer path="/customers/add" />
         <EditCustomer path="/customers/:id/edit" />
         <CustomerDetail path="/customers/:id/history" />
+        <NewOrder path="/customers/:id/new_order" />
         <Products path="/products" />
         <AddProduct path="/products/add" />
+        <EditProduct path="/products/:id/edit" />
       </Router>
     </div>
   );
