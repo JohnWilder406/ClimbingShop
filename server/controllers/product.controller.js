@@ -1,11 +1,12 @@
 const Products = require("../models/product.model");
 
 module.exports.createProduct = (req,res) => {
-    const {name, price, description} = req.body;
+    const {name, price, description, number} = req.body;
     Products.create({
         name,
         price,
-        description
+        description,
+        number
     })
         .then(product=> res.json(product))
         .catch(err => res.json(err))

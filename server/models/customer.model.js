@@ -40,7 +40,8 @@ const CustomerSchema = new mongoose.Schema({
         minLength: [10, "Address must be at least 10 characters"]
 
     },
-    orders: [OrderSchema]
+    orders: [OrderSchema],
+    number: Number
 }, {timestamps: true});
 
 CustomerSchema.plugin(uniqueValidator, {message: 'Error, name must be unique'});

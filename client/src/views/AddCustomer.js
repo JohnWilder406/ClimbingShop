@@ -3,6 +3,7 @@ import axios from 'axios'
 import {Link, navigate} from '@reach/router'
 import { Container, Row, Col } from 'react-bootstrap';
 import ModularForm from '../components/Form';
+import numberGen from '../components/number';
 
 const AddCustomer = (props) => {
     const [errors, setErrors] = useState({});
@@ -12,7 +13,21 @@ const AddCustomer = (props) => {
         email: "",
         address: "",
         orders: [],
+        number: "",
     })
+    const [custNumber, setCustNumber] = useState();
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/customers')
+            .then((res) => {
+                console.log(res.data)
+                setCustNumber(numberGen(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,7 +47,7 @@ const AddCustomer = (props) => {
 
     return (
         <Container>
-            <ModularForm object={customer} setObject={setCustomer} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Customer"} inventory={false}/>
+            <ModularForm idnumber={custNumber} object={customer} setObject={setCustomer} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Customer"} inventory={false}/>
         </Container>
     )
 }

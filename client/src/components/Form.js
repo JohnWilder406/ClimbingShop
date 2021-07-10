@@ -2,27 +2,27 @@ import React from 'react';
 import {Button, Container, Form, Row, Col} from 'react-bootstrap'
 
 const ModularForm = (props) => {
-    const {object, setObject, errors, handleSubmit, submitLabel, inventory} = props;
+    const {object, setObject, errors, handleSubmit, submitLabel, inventory, idnumber} = props;
 
     const inputChange = (e) => {
         let newObject = { ...object};
+        newObject.number = idnumber
         console.log(e.target.name)
         newObject[e.target.name] = e.target.value;
         setObject(newObject)
+        console.log(newObject)
     }
-
-    const nameHandler = () => {
-        if(inventory) {
-            return errors.name.message
-        } else {
-            return errors.firstName.message
-        }
-    }
-    console.log(errors)
 
     return (
         <Container className="border border-dark">
         <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form.Group>
+                <Form.Label>Customer Number:</Form.Label>
+                <Form.Control 
+                readOnly 
+                name={inventory ? "custnumber" : "prodnumber"}
+                value={idnumber} />
+            </Form.Group>
             <Row>
                 <Col>
                     <Form.Group className="mb-3">

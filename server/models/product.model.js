@@ -20,7 +20,8 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: [true, "Product description is required"],
         minLength: [10, "Description must be at least 10 characters"]
-    }
+    },
+    number: Number
 }, {timestamps: true});
 
 ProductSchema.plugin(uniqueValidator, {message: 'Error: product name must be unique'})
@@ -28,5 +29,3 @@ ProductSchema.plugin(uniqueValidator, {message: 'Error: product name must be uni
 const productModel = conn2.model('Products', ProductSchema);
 
 module.exports = productModel;
-
-// module.exports = mongoose.model('Proucts', ProductSchema)

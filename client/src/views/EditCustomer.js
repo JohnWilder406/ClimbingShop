@@ -43,7 +43,7 @@ const EditCustomer = (props) => {
 
     return (
         <Container>
-            <ModularForm object={customer} setObject={setCustomer} errors={errors} handleSubmit={handleSubmit} submitLabel={"Edit Customer"} />
+            <ModularForm idnumber={customer.number} object={customer} setObject={setCustomer} errors={errors} handleSubmit={handleSubmit} submitLabel={"Edit Customer"} />
             <DeleteButton id={id} afterDeleteHandler={afterDeleteHandler} deleteLabel={'Delete Customer'} mongoLabel={'customers'} />
         </Container>
     )

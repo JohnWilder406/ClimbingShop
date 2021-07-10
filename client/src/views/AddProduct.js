@@ -3,14 +3,27 @@ import axios from 'axios';
 import {Link, navigate} from '@reach/router';
 import {Container, Row, Col} from 'react-bootstrap';
 import ModularForm from '../components/Form';
+import numberGen from '../components/number';
 
 const AddProduct = (props) => {
+    const [prodNumber, setProdNumber] = useState()
     const [errors, setErrors] = useState({});
     const [product, setProduct] = useState({
         name: "",
         price: 0,
         description: "",
     })
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/products')
+            .then((res) => {
+                console.log(res.data)
+                setProdNumber(numberGen(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,7 +43,7 @@ const AddProduct = (props) => {
 
     return (
         <Container>
-            <ModularForm object={product} setObject={setProduct} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Product"} inventory={true}/>
+            <ModularForm idnumber={prodNumber} object={product} setObject={setProduct} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Product"} inventory={true}/>
         </Container>
     )
 }
