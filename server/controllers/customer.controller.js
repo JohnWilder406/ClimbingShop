@@ -36,9 +36,14 @@ module.exports.updateCustomer = (req, res) => {
         .catch(err => res.json(err))
 }
 
-// module.exports.updateCustomerOrder = (req, res) => {
-//     Customers.findByIdAndUpdate(req.params.id, )
-// }
+module.exports.updateCustomerOrder = (req, res) => {
+    Customers.updateOne({'orders._id': req.params.orderid},
+        {'$set': {
+            'orders.$.favorite': req.body.favorite
+        }})
+        .then(updatedOrder => res.json(updatedOrder))
+        .catch(err => res.json(err))
+}
 
 module.exports.deleteCustomer = (req,res) => {
     Customers.deleteOne({_id: req.params.id})

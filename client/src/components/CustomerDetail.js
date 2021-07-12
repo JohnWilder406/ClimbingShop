@@ -23,11 +23,10 @@ const CustomerDetail = (props) => {
     }, [id])
 
     const favoriteChange = (order, status) => {
-
-        console.log(order)
-        axios.put('http://localhost:8000/api/customers/' + id + '/' + order._id, {favorite: status})
+        axios.put('http://localhost:8000/api/customers/' + id + '/favorite/' + order._id, {favorite: status})
         .then(res => console.log(res))
         .catch(err => console.log(err));
+        
     }
 
     return (
