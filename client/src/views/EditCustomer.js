@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import {Link, navigate} from '@reach/router'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
 import ModularForm from '../components/Form';
 import DeleteButton from '../components/DeleteButton';
 
@@ -43,6 +43,13 @@ const EditCustomer = (props) => {
 
     return (
         <Container>
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <Nav.Link href="/main">Main Page</Nav.Link>
+                    <Nav.Link href={"/customers/" + id + "/history"}>Customer History</Nav.Link>
+                </Nav>
+            </Navbar>
             <ModularForm idnumber={customer.number} object={customer} setObject={setCustomer} errors={errors} handleSubmit={handleSubmit} submitLabel={"Edit Customer"} />
             <DeleteButton id={id} afterDeleteHandler={afterDeleteHandler} deleteLabel={'Delete Customer'} mongoLabel={'customers'} />
         </Container>

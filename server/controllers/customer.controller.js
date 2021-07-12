@@ -36,6 +36,15 @@ module.exports.updateCustomer = (req, res) => {
         .catch(err => res.json(err))
 }
 
+module.exports.createOrder = (req, res) => {
+    Customers.updateOne({'_id': req.params.id},
+        {$push: {
+            orders: req.body.order
+        }})
+        .then(updatedOrder => res.json(updatedOrder))
+        .catch(err => res.json(err))
+}
+
 module.exports.updateCustomerOrder = (req, res) => {
     Customers.updateOne({'orders._id': req.params.orderid},
         {'$set': {

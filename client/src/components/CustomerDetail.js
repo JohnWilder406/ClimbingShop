@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link, navigate} from '@reach/router';
-import {Container, Card, Row, Col, Button, Table, Nav, Navbar, Form, FormControl} from 'react-bootstrap';
+import {Container, Card, Row, Col, Button, Table, Nav, Navbar, Form, FormControl, NavDropdown} from 'react-bootstrap';
 
 
 
@@ -45,7 +45,17 @@ const CustomerDetail = (props) => {
                 <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Link to={'/customers/' + id + '/new_order'} state={{favorite: false}}>New Order</Link>
-                    <Link to={'/customers/' + id + '/new_order'} state={{favorite: true}}>Re-Order Favorite</Link>
+                    <NavDropdown title="Re-Order Favorite">
+                        {
+                            orders.map((order,idx) => {
+                                if(order.favorite) {
+                                    return (
+                                        <NavDropdown.Item key={idx}><Link to={'/customers/' + id + '/new_order'} state={{favorite: true, idx: idx}}>{order.item}</Link></NavDropdown.Item>
+                                    ) 
+                                }
+                            })
+                        }
+                    </NavDropdown>
                     <Nav.Link href="/main">Return Home</Nav.Link>
                 </Nav>
                 <Form inline>

@@ -5,7 +5,7 @@ import {Link, navigate} from '@reach/router';
 import Search from './Search';
 
 const NewOrder = (props) => {
-    const {id, location, favorite} = props;
+    const {id, location} = props;
     const [customer, setCustomer] = useState({});
     const [products, setProducts] = useState([]);
     const [prodDefault, setProdDefault] = useState([])
@@ -17,10 +17,7 @@ const NewOrder = (props) => {
         shipped: false,
         favorite: false
     })
-    const [orders, setOrders] = useState([])
     const [quantity, setQuantity] = useState();
-
-    console.log(location.state.favorite)
     
     useEffect(() => {
         axios.get('http://localhost:8000/api/customers/' + id)
@@ -28,26 +25,21 @@ const NewOrder = (props) => {
                 setCustomer(res.data);
                 if(location.state.favorite) {
                     let array = (res.data.orders)
-                    for(var i = 0; i < array.length; i++) {
-                        if(array[i].favorite) {
-                            setOrder({
-                                item: array[i].item,
-                                quantity: array[i].quantity,
-                                price: array[i].price
-                            })
-                        }
-                    }
-                }
-            })
-            .then(() => {
-                if(location.state.favorite) {
-                    setOrders([...customer.orders, order])
+                    let index = (location.state.idx)
+                    setOrder({
+                        item: array[index].item,
+                        quantity: array[index].quantity,
+                        price: array[index].price,
+                        shipped: false,
+                        favorite: false
+                    })
                 }
             })
             .catch((err) => {
                 console.log(err)
             })
     }, [id])
+
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/products')
@@ -64,23 +56,17 @@ const NewOrder = (props) => {
         setOrder({
             item: item,
             quantity: qty,
-            price: price
-        })
-        setOrders([...customer.orders, {
-            item: item,
-            quantity: qty,
             price: price,
             shipped: false,
             favorite: false
-        }])
-        
+        })
     }
 
     //submit handler - need to set quantity and set up order, then need to setOrders with order and then submit to update.
     const submitHandler = (e) => {
+        console.log(order)
         e.preventDefault();
-        console.log(orders)
-        axios.put('http://localhost:8000/api/customers/' + id, {orders: orders})
+        axios.put('http://localhost:8000/api/customers/' + id + '/add', {order})
             .then((res) => {
                 console.log(res)
                 navigate('/main')
@@ -105,7 +91,7 @@ const NewOrder = (props) => {
                 <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="">Re-Order Favorite</Nav.Link>
-                    <Nav.Link href="/main">Return Home</Nav.Link>
+                    <Nav.Link href={"/customers/" + id + "/history"}>Return To History</Nav.Link>
                 </Nav>
                 <Search searchQuery={searchQuery} onChange={updateInput} />
             </Navbar>
@@ -129,7 +115,7 @@ const NewOrder = (props) => {
                     </Form.Label>
                 </Form.Group>
                 <Form.Group>
-                    <Button onClick={(e) => submitHandler(e, orders)}>Submit Order</Button>
+                    <Button onClick={(e) => submitHandler(e, order)}>Submit Order</Button>
                 </Form.Group>
             </Form>
             <Table bordered striped>
@@ -160,7 +146,7 @@ const NewOrder = (props) => {
                                     <option value={10}>10</option>
                                 </Form.Control></td>
                                 <td>{product.description}</td>
-                                <td><Button onClick={(e) => addHandler(product.name, product.price, quantity)}>Add to Order</Button></td></tr>
+                                <td>{location.state.favorite ? <Button disabled>Add to Order</Button> : <Button onClick={(e) => addHandler(product.name, product.price, quantity)}>Add to Order</Button>}</td></tr>
                             )
                         })
                     }
