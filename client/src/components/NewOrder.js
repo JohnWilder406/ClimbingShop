@@ -5,7 +5,7 @@ import {Link, navigate} from '@reach/router';
 import Search from './Search';
 
 const NewOrder = (props) => {
-    const {id} = props;
+    const {id, location, favorite} = props;
     const [customer, setCustomer] = useState({});
     const [products, setProducts] = useState([]);
     const [prodDefault, setProdDefault] = useState([])
@@ -19,11 +19,30 @@ const NewOrder = (props) => {
     })
     const [orders, setOrders] = useState([])
     const [quantity, setQuantity] = useState();
+
+    console.log(location.state.favorite)
     
     useEffect(() => {
         axios.get('http://localhost:8000/api/customers/' + id)
             .then((res) => {
                 setCustomer(res.data);
+                if(location.state.favorite) {
+                    let array = (res.data.orders)
+                    for(var i = 0; i < array.length; i++) {
+                        if(array[i].favorite) {
+                            setOrder({
+                                item: array[i].item,
+                                quantity: array[i].quantity,
+                                price: array[i].price
+                            })
+                        }
+                    }
+                }
+            })
+            .then(() => {
+                if(location.state.favorite) {
+                    setOrders([...customer.orders, order])
+                }
             })
             .catch((err) => {
                 console.log(err)
@@ -41,8 +60,7 @@ const NewOrder = (props) => {
         })
     }, [])
 
-    const addHandler =(item, price, qty) => {
-        // e.preventDefault();
+    const addHandler = (item, price, qty) => {
         setOrder({
             item: item,
             quantity: qty,
@@ -59,7 +77,6 @@ const NewOrder = (props) => {
     }
 
     //submit handler - need to set quantity and set up order, then need to setOrders with order and then submit to update.
-
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(orders)
@@ -104,7 +121,7 @@ const NewOrder = (props) => {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Quantity:</Form.Label>
-                    <Form.Control readOnly value={quantity} />
+                    <Form.Control readOnly value={order.quantity} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>

@@ -3,13 +3,12 @@ import axios from 'axios';
 import {Link, navigate} from '@reach/router';
 import {Container, Card, Row, Col, Button, Table, Nav, Navbar, Form, FormControl} from 'react-bootstrap';
 
+
+
 const CustomerDetail = (props) => {
     const {id} = props;
     const [customer, setCustomer] = useState({});
     const [orders, setOrders] = useState([])
-    const [status, setStatus] = useState();
-    const [orderInfo, setOrderInfo] = useState({})
-    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/customers/' + id)
@@ -36,8 +35,8 @@ const CustomerDetail = (props) => {
                 })
         })
         .catch(err => console.log(err));
-
     }
+
 
     return (
         <Container>
@@ -45,8 +44,8 @@ const CustomerDetail = (props) => {
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href={'/customers/' + id + '/new_order'}>New Order</Nav.Link>
-                    <Nav.Link href="">Re-Order Favorite</Nav.Link>
+                    <Link to={'/customers/' + id + '/new_order'} state={{favorite: false}}>New Order</Link>
+                    <Link to={'/customers/' + id + '/new_order'} state={{favorite: true}}>Re-Order Favorite</Link>
                     <Nav.Link href="/main">Return Home</Nav.Link>
                 </Nav>
                 <Form inline>

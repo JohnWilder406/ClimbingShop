@@ -10,7 +10,9 @@ const OrderSchema = new mongoose.Schema({
     quantity: Number,
     price: Number,
     shipped: Boolean,
-    favorite: Boolean
+    favorite: {
+        type: Boolean,
+        }
 })
 
 const CustomerSchema = new mongoose.Schema({
