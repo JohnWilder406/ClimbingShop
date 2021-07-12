@@ -7,8 +7,9 @@ const CustomerDetail = (props) => {
     const {id} = props;
     const [customer, setCustomer] = useState({});
     const [orders, setOrders] = useState([])
-    const [favorite, setFavorite] = useState();
-    // const [isDisabled, setIsDisabled] = useState(false);
+    const [status, setStatus] = useState();
+    const [orderInfo, setOrderInfo] = useState({})
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/customers/' + id)
@@ -23,10 +24,19 @@ const CustomerDetail = (props) => {
     }, [id])
 
     const favoriteChange = (order, status) => {
+        console.log(order)
         axios.put('http://localhost:8000/api/customers/' + id + '/favorite/' + order._id, {favorite: status})
-        .then(res => console.log(res))
+        .then(() => {
+            return axios.get('http://localhost:8000/api/customers/' + id)
+                .then((res) => {
+                    setOrders(res.data.orders)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        })
         .catch(err => console.log(err));
-        
+
     }
 
     return (
