@@ -7,7 +7,7 @@ const CustomerDetail = (props) => {
     const {id} = props;
     const [customer, setCustomer] = useState({});
     const [orders, setOrders] = useState([])
-    // const [favorite, setFavorite] = useState();
+    const [favorite, setFavorite] = useState();
     // const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
@@ -22,13 +22,21 @@ const CustomerDetail = (props) => {
             })
     }, [id])
 
+    const favoriteChange = (order, status) => {
+
+        console.log(order)
+        axios.put('http://localhost:8000/api/customers/' + id + '/' + order._id, {favorite: status})
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    }
+
     return (
         <Container>
             <h1>Order History for {customer.firstName} </h1>
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="">New Order</Nav.Link>
+                    <Nav.Link href={'/customers/' + id + '/new_order'}>New Order</Nav.Link>
                     <Nav.Link href="">Re-Order Favorite</Nav.Link>
                     <Nav.Link href="/main">Return Home</Nav.Link>
                 </Nav>
@@ -52,7 +60,7 @@ const CustomerDetail = (props) => {
                     {
                         orders.map((order,idx) => {
                             return (
-                                <tr key={idx}><td>None</td><td>{order.item}</td><td>{order.quantity}</td><td>{order.price}</td><td>{order.shipped ? "Yes" : "No"}</td><td>{order.favorite ? "Yes" : "No"}</td></tr>
+                                <tr key={idx}><td>{idx + 1}</td><td>{order.item}</td><td>{order.quantity}</td><td>{order.price}</td><td>{order.shipped ? "Yes" : "No"}</td><td>{order.favorite ? <Button variant="primary" onClick={(e)=>favoriteChange(order, false)}>Yes</Button>: <Button onClick={(e)=>favoriteChange(order, true)} variant="secondary">No</Button>}</td></tr>
                             )
                         })
                     }

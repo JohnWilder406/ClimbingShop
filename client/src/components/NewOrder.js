@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Table, Button, Nav, NavBar, Row, Col, Card, FormGroup, Form, FormControl } from 'react-bootstrap';
+import { Container, Table, Button, Nav, Navbar, Row, Col, Card, FormGroup, Form, FormControl } from 'react-bootstrap';
 import {Link, navigate} from '@reach/router';
+import Search from './Search';
 
 const NewOrder = (props) => {
     const {id} = props;
     const [customer, setCustomer] = useState({});
     const [products, setProducts] = useState([]);
+    const [prodDefault, setProdDefault] = useState([])
+    const [searchQuery, setSearchQuery] = useState()
     const [order, setOrder] = useState({
         item: "",
         quantity: 0,
@@ -31,6 +34,7 @@ const NewOrder = (props) => {
         axios.get('http://localhost:8000/api/products')
         .then((res) => {
             setProducts(res.data);
+            setProdDefault(res.data);
         })
         .catch((err) => {
             console.log(err)
@@ -69,29 +73,38 @@ const NewOrder = (props) => {
             })
     }
 
-    // const changeHandler = (e) => {
-    //     setQuantity(e.target.name)
-    // }
-    
-
-    // console.log(order)
+       //search filter
+    const updateInput = async (searchQuery) => {
+        const filtered = prodDefault.filter(product => {
+            return product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        })
+        setSearchQuery(searchQuery);
+        setProducts(filtered);
+    }
 
     return (
         <div>
-            <h1>New Order Page</h1>
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <Nav.Link href="">Re-Order Favorite</Nav.Link>
+                    <Nav.Link href="/main">Return Home</Nav.Link>
+                </Nav>
+                <Search searchQuery={searchQuery} onChange={updateInput} />
+            </Navbar>
             <h3>Order form for {customer.firstName}</h3>
             <Form>
                 <Form.Group>
                     <Form.Label>Item:</Form.Label>
-                    <Form.Control plaintext readOnly defaultValue={order.item} />
+                    <Form.Control readOnly value={order.item} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Price: </Form.Label>
-                    <Form.Control plaintext readOnly defaultValue={order.price} />
+                    <Form.Control readOnly value={order.price} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Quantity:</Form.Label>
-                    <Form.Control plaintext readOnly defaultValue={order.quantity} />
+                    <Form.Control readOnly value={quantity} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>

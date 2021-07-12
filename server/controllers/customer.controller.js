@@ -36,6 +36,10 @@ module.exports.updateCustomer = (req, res) => {
         .catch(err => res.json(err))
 }
 
+// module.exports.updateCustomerOrder = (req, res) => {
+//     Customers.findByIdAndUpdate(req.params.id, )
+// }
+
 module.exports.deleteCustomer = (req,res) => {
     Customers.deleteOne({_id: req.params.id})
         .then(deleteConfirmation => res.json(deleteConfirmation))
