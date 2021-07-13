@@ -1,3 +1,5 @@
+//number generator for customers and inventory.
+
 const numberGen = (arr) => {
     let number = 100
     for (var i = 0; i < arr.length; i++) {

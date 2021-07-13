@@ -12,7 +12,7 @@ module.exports = {
                 res.json({ message: "Successfully Registered!", user: user })
             })
             .catch((err) => {
-                console.log("register not successful");
+                console.log("register not successful", err);
                 res.status(400).json(err)
             })
     },
@@ -59,5 +59,12 @@ module.exports = {
         console.log("logged out!");
         res.clearCookie("usertoken")
         res.json({message: "You have successfully logged out!"});
+    },
+
+    getAllUsers: (req, res) => {
+        User.find({})
+            .then(users => res.json(users))
+            .catch((err) => res.json(err))
     }
+
 }

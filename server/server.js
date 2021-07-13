@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.MY_PORT;
 
 require('./config/mongoose.config')
-// require('./config/mongoose1.config')
+
 
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(cookieParser());

@@ -9,7 +9,7 @@ const NewOrder = (props) => {
     const [customer, setCustomer] = useState({});
     const [products, setProducts] = useState([]);
     const [prodDefault, setProdDefault] = useState([])
-    const [searchQuery, setSearchQuery] = useState()
+    const [searchQuery, setSearchQuery] = useState("")
     const [order, setOrder] = useState({
         item: "",
         quantity: 0,
@@ -18,7 +18,10 @@ const NewOrder = (props) => {
         favorite: false
     })
     const [quantity, setQuantity] = useState();
-    
+
+    //retrieve customer id, if favorite is selected from History page, 
+    //this call assigns that order to the order in state on this page
+
     useEffect(() => {
         axios.get('http://localhost:8000/api/customers/' + id)
             .then((res) => {
@@ -40,7 +43,7 @@ const NewOrder = (props) => {
             })
     }, [id])
 
-
+    //retrieve inventory for the store
     useEffect(() => {
         axios.get('http://localhost:8000/api/products')
         .then((res) => {
@@ -52,6 +55,7 @@ const NewOrder = (props) => {
         })
     }, [])
 
+    //adds product to the order from the inventory table
     const addHandler = (item, price, qty) => {
         setOrder({
             item: item,
@@ -62,14 +66,14 @@ const NewOrder = (props) => {
         })
     }
 
-    //submit handler - need to set quantity and set up order, then need to setOrders with order and then submit to update.
+    //submits order to customers order schema in the db.
     const submitHandler = (e) => {
         console.log(order)
         e.preventDefault();
         axios.put('http://localhost:8000/api/customers/' + id + '/add', {order})
             .then((res) => {
                 console.log(res)
-                navigate('/main')
+                navigate('/customers/' + id + '/history')
             })
             .catch((err) => {
                 console.log(err)
@@ -88,51 +92,57 @@ const NewOrder = (props) => {
     return (
         <div>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
+                <Navbar.Brand href="/main">Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="">Re-Order Favorite</Nav.Link>
+                    <Nav.Link href="/main">Main Page</Nav.Link>
                     <Nav.Link href={"/customers/" + id + "/history"}>Return To History</Nav.Link>
                 </Nav>
                 <Search searchQuery={searchQuery} onChange={updateInput} />
             </Navbar>
             <h3>Order form for {customer.firstName}</h3>
-            <Form>
-                <Form.Group>
-                    <Form.Label>Item:</Form.Label>
-                    <Form.Control readOnly value={order.item} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Price: </Form.Label>
-                    <Form.Control readOnly value={order.price} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Quantity:</Form.Label>
-                    <Form.Control readOnly value={order.quantity} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>
-                        Total Price: {!order.price ? 0 : order.price * order.quantity}
-                    </Form.Label>
-                </Form.Group>
-                <Form.Group>
-                    <Button onClick={(e) => submitHandler(e, order)}>Submit Order</Button>
-                </Form.Group>
-            </Form>
+            <Card className='modularForm'>
+                <Card.Body>
+                    <Form inline>
+                        <Form.Group>
+                            <Form.Label className="mb-2 mr-sm-2">Item:</Form.Label>
+                            <Form.Control className="mb-2 mr-sm-2" readOnly value={order.item} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="mb-2 mr-sm-2">Price: </Form.Label>
+                            <Form.Control className="mb-2 mr-sm-2" readOnly value={order.price} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="mb-2 mr-sm-2">Quantity:</Form.Label>
+                            <Form.Control  className="mb-2 mr-sm-2" readOnly value={order.quantity} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="mb-2 mr-sm-5">
+                                Total Price: ${!order.price ? 0 : order.price * order.quantity}
+                            </Form.Label>
+                        </Form.Group>
+                        <Form.Group>
+                            <Button className="mb-2 mr-sm-2" variant="dark" onClick={(e) => submitHandler(e, order)}>Submit Order</Button>
+                        </Form.Group>
+                    </Form>
+                </Card.Body>
+            </Card>
             <Table bordered striped>
                 <thead>
                     <tr>
-                        <td>Product Name</td>
-                        <td>Price</td>
-                        <td>Quantity</td>
-                        <td>Description</td>
-                        <td>Edit Product</td>
+                        <th>Product Number</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Edit Product</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         products.map((product, idx) => {
                             return (
-                                <tr key={idx}><td>{product.name}</td><td>{product.price}</td>
+                                <tr key={idx}><td>{product.number}</td>
+                                <td>{product.name}</td><td>{product.price}</td>
                                 <td><Form.Control as="select" onChange={(e) => setQuantity(e.target.value)}>
                                     <option value={1}>1</option>
                                     <option value={2}>2</option>
@@ -146,7 +156,7 @@ const NewOrder = (props) => {
                                     <option value={10}>10</option>
                                 </Form.Control></td>
                                 <td>{product.description}</td>
-                                <td>{location.state.favorite ? <Button disabled>Add to Order</Button> : <Button onClick={(e) => addHandler(product.name, product.price, quantity)}>Add to Order</Button>}</td></tr>
+                                <td>{location.state.favorite ? <Button disabled>Add to Order</Button> : <Button variant="dark" onClick={(e) => addHandler(product.name, product.price, quantity)}>Add to Order</Button>}</td></tr>
                             )
                         })
                     }

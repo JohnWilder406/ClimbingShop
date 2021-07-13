@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import {Link, navigate} from '@reach/router'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Navbar, Nav, Row, Col } from 'react-bootstrap';
 import ModularForm from '../components/Form';
 import numberGen from '../components/number';
 
@@ -17,6 +17,7 @@ const AddCustomer = (props) => {
     })
     const [custNumber, setCustNumber] = useState();
 
+    //retrieves customer db to assign next customer number for new customer using numberGen.
     useEffect(() => {
         axios.get('http://localhost:8000/api/customers')
             .then((res) => {
@@ -28,7 +29,7 @@ const AddCustomer = (props) => {
             })
     }, []);
 
-
+    //submit handler- creates new customer in database
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:8000/api/customers', customer)
@@ -46,7 +47,14 @@ const AddCustomer = (props) => {
     }
 
     return (
-        <Container>
+        <Container className="mainContainer">
+        <Navbar bg="dark" variant="dark">
+                <Navbar.Brand href="/main">Bodie's Climbing</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <Nav.Link href="/main">Main Page</Nav.Link>
+                    <Nav.Link href="/products">Product Database</Nav.Link>
+                </Nav>
+            </Navbar>
             <ModularForm idnumber={custNumber} object={customer} setObject={setCustomer} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Customer"} inventory={false}/>
         </Container>
     )

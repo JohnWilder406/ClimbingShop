@@ -14,12 +14,13 @@ import EditProduct from './views/EditProduct';
 import NewOrder from './components/NewOrder';
 
 
+
 function App() {
   const [token, setToken] = useState(false);
 
   // if(!token) {
   //   return (
-  //     <div>
+  //     <div className="App">
   //       <Router>
   //         <Login path="/" setToken={setToken} />
   //         <Register path="/register" />

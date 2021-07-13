@@ -10,6 +10,7 @@ const EditProduct = (props) => {
     const [errors, setErrors] = useState({});
     const [product, setProduct] = useState({});
 
+    //retrieves product info and loads it into the form
     useEffect(() => {
         axios.get('http://localhost:8000/api/products/' + id)
             .then((res) => {
@@ -21,10 +22,12 @@ const EditProduct = (props) => {
             })
     }, [id])
 
+    //navigates back to products database after product delete
     const afterDeleteHandler = () => {
         navigate('/products')
     }
 
+    //uploads changes to product
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put('http://localhost:8000/api/products/' + id, product)

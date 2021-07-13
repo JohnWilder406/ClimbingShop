@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Card, Button, Row, Col, Form, Navbar, Nav, FormControl } from 'react-bootstrap';
+import { Table, Card, Button, Row, Col, Form, Navbar, Nav, FormControl, Container } from 'react-bootstrap';
 import {Link, navigate} from '@reach/router';
 import axios from 'axios';
 import Logout from '../components/Logout';
@@ -40,39 +40,41 @@ const Main = (props) => {
     }
 
     return (
-        <div>
-            <h1>Main Page Testing</h1>
+        <Container className="mainContainer">
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/customers/add">New Customer</Nav.Link>
                     <Nav.Link href="/products/add">New Product</Nav.Link>
                     <Nav.Link href="/products">Product Database</Nav.Link>
-                    <Logout />
                 </Nav>
+                <Logout />
                 <Search searchQuery={searchQuery} onChange={updateInput} />
             </Navbar>
-
-            <Table bordered striped>
-                <thead>
-                    <tr>
-                        <td>Customer Number</td>
-                        <td>Customer Name</td>
-                        <td>Numer of Orders</td>
-                        <td>Actions Available</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        customers.map((customer, idx) => {
-                            return (
-                                <tr key={idx}><td>{customer.number}</td><td>{customer.firstName +' '+ customer.lastName}</td><td>{customer.orders.length}</td><td><Button variant="none"><Link to={'/customers/' + customer._id + '/new_order'}>New Order</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/history'}>View Orders</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/edit'}>Edit Customer</Link></Button></td></tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </Table>
-        </div>
+            <Card className="modularForm">
+                <Card.Body>
+                    <Table bordered striped hover>
+                        <thead>
+                            <tr>
+                                <th>Customer Number</th>
+                                <th>Customer Name</th>
+                                <th>Numer of Orders</th>
+                                <th>Actions Available</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                customers.map((customer, idx) => {
+                                    return (
+                                        <tr key={idx}><td>{customer.number}</td><td>{customer.firstName +' '+ customer.lastName}</td><td>{customer.orders.length}</td><td><Button variant="none"><Link to={'/customers/' + customer._id + '/new_order'}>New Order</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/history'}>View Orders</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/edit'}>Edit Customer</Link></Button></td></tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </Table>
+                </Card.Body>
+            </Card>
+        </Container>
     )
 }
 

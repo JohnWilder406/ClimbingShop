@@ -14,6 +14,7 @@ const AddProduct = (props) => {
         description: "",
     })
 
+    //retrieves inventory db to assign next inventory number for new product using numberGen.
     useEffect(() => {
         axios.get('http://localhost:8000/api/products')
             .then((res) => {
@@ -25,6 +26,7 @@ const AddProduct = (props) => {
             })
     }, []);
 
+    //adds product to db
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:8000/api/products', product)

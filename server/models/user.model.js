@@ -1,5 +1,6 @@
 const bycrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const {conn1} = require('../config/mongoose.config')
 
 const UserSchema = new mongoose.Schema({
     firstName: {
@@ -47,6 +48,6 @@ UserSchema.pre('save', function(next) {
         });
 });
 
-const User = mongoose.model('EmployeeUser', UserSchema)
+const User = conn1.model('EmployeeUser', UserSchema)
 
 module.exports = User;

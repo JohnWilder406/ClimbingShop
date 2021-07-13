@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Card, Form, Button, Row, Col} from 'react-bootstrap';
+import React, {useState, useEffect} from 'react';
+import {Card, Form, Button, Row, Col, Container, Image} from 'react-bootstrap';
 import axios from 'axios'
 import { Link, navigate } from '@reach/router';
 
@@ -10,6 +10,7 @@ const Login = (props) => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    //login function
     const login = (e) => {
         e.preventDefault();
         axios.post("http://localhost:8000/api/users/login", {
@@ -29,13 +30,16 @@ const Login = (props) => {
         })
     }
 
+
     return (
-        <Card border="dark" style={{margin: "50px"}}>
-        <Card.Header style={{textAlign: "center", fontSize: "24px"}}>Login</Card.Header>
-        <Form style={{width: "800px", margin: "20px"}} onSubmit={login}>
-            <Form.Group as={Row}>
+        <Container className='loginContainer' >
+        <Card border="dark" className="text-center">
+        <Card.Header style={{fontSize: "24px"}}>Login</Card.Header>
+        <Card.Body>
+        <Form  className='text-center' onSubmit={login}>
+            <Form.Group as={Row} className='text-center'>
                 <Form.Label column sm={2}>Email:</Form.Label>
-                <Col sm={10}>
+                <Col sm={8}>
                 <Form.Control type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" />
                 </Col>
             </Form.Group>
@@ -44,14 +48,16 @@ const Login = (props) => {
             }
             <Form.Group as={Row}>
                 <Form.Label column sm={2}>Password:</Form.Label>
-                <Col sm={10}>
+                <Col sm={8}>
                 <Form.Control type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
                 </Col>
             </Form.Group>
-        <Button type="submit" style={{width: "150px", textAlign: "center"}}>Login</Button>
+        <Button className='mb-2' variant="dark" size="lg" type="submit" >Login</Button>
         </Form>
-        <Link to="/register">Not registered? Click here.</Link>
+        </Card.Body>
+        <Link style={{margin: 'auto'}} to="/register">Not registered? Click here.</Link>
     </Card>
+    </Container>
     )
 }
 

@@ -13,7 +13,7 @@ const Logout = () => {
     }
 
     return (
-        <Button variant="danger" onClick={logout}>Log Out</Button>
+        <Button className="mr-sm-2" variant="danger" onClick={logout}>Log Out</Button>
     )
 }
 

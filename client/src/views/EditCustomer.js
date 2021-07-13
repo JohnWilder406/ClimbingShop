@@ -10,6 +10,7 @@ const EditCustomer = (props) => {
     const [errors, setErrors] = useState({});
     const [customer, setCustomer] = useState({})
 
+    //retrieves specific customer and loads customer info into form.
     useEffect(() => {
         axios.get('http://localhost:8000/api/customers/' + id)
             .then((res) => {
@@ -21,10 +22,12 @@ const EditCustomer = (props) => {
             })
     }, [id])
 
+    //navigates to main page if customer is deleted
     const afterDeleteHandler = () => {
         navigate('/main')
     }
 
+    //submits changes to customer
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put('http://localhost:8000/api/customers/' + id, customer)
@@ -49,9 +52,9 @@ const EditCustomer = (props) => {
                     <Nav.Link href="/main">Main Page</Nav.Link>
                     <Nav.Link href={"/customers/" + id + "/history"}>Customer History</Nav.Link>
                 </Nav>
+                <DeleteButton id={id} afterDeleteHandler={afterDeleteHandler} deleteLabel={'Delete Customer'} mongoLabel={'customers'} />
             </Navbar>
             <ModularForm idnumber={customer.number} object={customer} setObject={setCustomer} errors={errors} handleSubmit={handleSubmit} submitLabel={"Edit Customer"} />
-            <DeleteButton id={id} afterDeleteHandler={afterDeleteHandler} deleteLabel={'Delete Customer'} mongoLabel={'customers'} />
         </Container>
     )
 }
