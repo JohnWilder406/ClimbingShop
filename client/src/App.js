@@ -15,6 +15,7 @@ import NewOrder from './components/NewOrder';
 
 
 
+
 function App() {
   //protected path token (true allows entry to site, false keeps you at Login or Registration page)
   const [token, setToken] = useState(false);
@@ -23,7 +24,7 @@ function App() {
     <div className="App">
       <Router>
         <Login path="/" setToken={setToken} />
-        <Register path="/register" />
+          <Register path="/register" />
         {
           token ? (
             <>

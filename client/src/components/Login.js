@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, Form, Button, Row, Col, Container} from 'react-bootstrap';
+import {Card, Form, Button, Row, Col, Container, Modal} from 'react-bootstrap';
 import axios from 'axios'
 import { Link, navigate } from '@reach/router';
 
@@ -9,6 +9,9 @@ const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
 
     //login function
     const login = (e) => {
@@ -26,7 +29,8 @@ const Login = (props) => {
         })
         .catch(err => {
             console.log(err.response);
-            setErrorMessage(err.response.data.message)
+            setErrorMessage(err.response.data.message);
+            setShow(true)
         })
     }
 
@@ -43,9 +47,6 @@ const Login = (props) => {
                 <Form.Control type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" />
                 </Col>
             </Form.Group>
-            {
-                errorMessage ? <span className="error">{errorMessage}</span> : null
-            }
             <Form.Group as={Row}>
                 <Form.Label column sm={2}>Password:</Form.Label>
                 <Col sm={8}>
@@ -57,6 +58,14 @@ const Login = (props) => {
         </Card.Body>
         <Link style={{margin: 'auto'}} to="/register">Not registered? Click here.</Link>
     </Card>
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Body className="error text-center">
+            {errorMessage}
+        </Modal.Body>
+        <Modal.Footer>
+            <Button style={{marginRight: "200px"}} variant="dark" onClick={handleClose}>Close</Button>
+        </Modal.Footer>
+    </Modal>
     </Container>
     )
 }

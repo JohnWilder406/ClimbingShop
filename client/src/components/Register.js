@@ -30,6 +30,9 @@ const Register= () => {
         axios.post('http://localhost:8000/api/users/register', user)
             .then(res => {
                 console.log(res.data);
+                if(res.data.errors) {
+                    setErrs(res.data.errors)
+                } else {
                 setUser({
                     firstName: "",
                     lastName: "",
@@ -39,12 +42,13 @@ const Register= () => {
                 })
                 setConfirmReg("Thank you for Registering, you can now log in!");
                 setErrs({});
+                navigate("/")
+            }
             })
             .catch((err) => {
-                console.log(err);
-                setErrs(err.res.data.errors);
+                console.log(err.response);
+                setErrs(err.response.data.errors);
             })
-            navigate("/")
     }
 
     return (
@@ -58,36 +62,36 @@ const Register= () => {
                 <Form.Label column sm={3}>First Name:</Form.Label>
                 <Col sm={9}>
                 <Form.Control type="text" name="firstName" value={user.firstName} onChange={(e) => handleChange(e)} placeholder="Enter your first name" />
+                {errs.firstName ? <span className="error">{errs.firstName.message}</span> : null}
                 </Col>
-                {errs.firstName ? <span className="error-text">{errs.firstName.message}</span> : null}
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm={3}>Last Name:</Form.Label>
                 <Col sm={9}>
                 <Form.Control type="text" name="lastName" value={user.lastName} onChange={(e) => handleChange(e)} placeholder="Enter your last name" />
+                {errs.lastName ? <span className="error">{errs.lastName.message}</span> : null}
                 </Col>
-                {errs.lastName ? <span className="error-text">{errs.lastName.message}</span> : null}
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm={3}>Email:</Form.Label>
                 <Col sm={9}>
                 <Form.Control type="text" name="email" value={user.email} onChange={(e) => handleChange(e)} placeholder="Enter your email" />
+                {errs.email ? <span className="error">{errs.email.message}</span> : null}
                 </Col>
-                {errs.email ? <span className="error-text">{errs.email.message}</span> : null}
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm={3}>Password:</Form.Label>
                 <Col sm={9}>
                 <Form.Control type="password" name="password" value={user.password} onChange={(e) => handleChange(e)} placeholder="Enter a password" />
+                {errs.password ? <span className="error">{errs.password.message}</span> : null}
                 </Col>
-                {errs.password ? <span className="error-text">{errs.password.message}</span> : null}
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm={3}>Confirm Password:</Form.Label>
                 <Col sm={9}>
                 <Form.Control type="password" name="confirmPassword" value={user.confirmPassword} onChange={(e) => handleChange(e)} placeholder="Re-enter your password" />
+                {errs.confirmPassword? <span className="error">{errs.confirmPassword.message}</span> : null}
                 </Col>
-                {errs.confirmPassword? <span className="error-text">{errs.confirmPassword.message}</span> : null}
             </Form.Group>
         <Button variant="dark" type="submit" style={{width: "150px", textAlign: "center"}}>Register</Button>
         </Form> 

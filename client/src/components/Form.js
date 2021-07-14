@@ -54,7 +54,7 @@ const ModularForm = (props) => {
                             <Form.Control
                                 type={inventory ? "number" : "text"}
                                 name={inventory ? "price" : "lastName"}
-                                value={inventory ? object.price : object.lastName}
+                                value={inventory ? object.price : object.lastName ? object.lastName : ""}
                                 onChange={(e) => inputChange(e)} />
                                 {
                                 errors.lastName ? <span className="error">{errors.lastName.message}</span> : 
@@ -70,7 +70,7 @@ const ModularForm = (props) => {
                             <Form.Control
                                 type="text"
                                 name={inventory ? "description" : "email"}
-                                value={inventory ? object.description : object.email}
+                                value={inventory ? object.description : object.email ? object.email : ""}
                                 onChange={(e) => inputChange(e)} />
                                 {
                                     errors.description ? <span className="error">{errors.description.message}</span> :
@@ -87,7 +87,7 @@ const ModularForm = (props) => {
                             <Form.Control
                                 type="text"
                                 name="address"
-                                value={object.address}
+                                value={object.address ? object.address : ""}
                                 onChange={(e) => inputChange(e)} />
                                 {
                                     errors.type ? 

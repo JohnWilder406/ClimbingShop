@@ -38,7 +38,7 @@ const AddCustomer = (props) => {
                 if(res.data.errors) {
                     setErrors(res.data.errors)
                 } else {
-                    navigate('/main')
+                    navigate('/customers/' + res.data._id + '/new_order')
                 }
             })
             .catch((err) => {

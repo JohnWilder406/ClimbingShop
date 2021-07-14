@@ -4,13 +4,11 @@ import {Button} from 'react-bootstrap';
 import {navigate} from '@reach/router'
 
 const Logout = (props) => {
-    const {setToken} = props
-    //logs user out by deleting cookie, setting protected path token to false, and navigating to login page.
+    //logs user out by deleting cookie and navigating to login page.
     const logout = () => {
         axios.post("http://localhost:8000/api/users/logout")
         .then((res) => {
             console.log(res.data);
-            setToken(false);
             navigate("/");
         })
     }

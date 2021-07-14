@@ -13,7 +13,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log("register not successful", err);
-                res.status(400).json(err)
+                res.json(err)
             })
     },
 
@@ -51,7 +51,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log("login not successful");
-                res.status(400).json(err)
+                res.json(err)
             })
     },
 
