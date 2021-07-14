@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Container, Card, Form, Row, Col} from 'react-bootstrap'
+import {Button, Card, Form, Row, Col} from 'react-bootstrap'
 
 const ModularForm = (props) => {
     const {object, setObject, errors, handleSubmit, submitLabel, inventory, idnumber} = props;
@@ -19,7 +19,9 @@ const ModularForm = (props) => {
             <Card.Body>
                 <Form onSubmit={(e) => handleSubmit(e)}>
                     <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm={2}>Customer Number:</Form.Label>
+                        <Form.Label column sm={2}>
+                            {inventory ? "Product Number" : "Customer Number"}
+                        </Form.Label>
                         <Col sm={2}>
                             <Form.Control 
                             readOnly 
@@ -83,7 +85,7 @@ const ModularForm = (props) => {
                         </Form.Label>
                         <Col sm={8}>
                             <Form.Control
-                                type="textarea"
+                                type="text"
                                 name="address"
                                 value={object.address}
                                 onChange={(e) => inputChange(e)} />

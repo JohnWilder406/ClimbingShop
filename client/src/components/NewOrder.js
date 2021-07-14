@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Table, Button, Nav, Navbar, Row, Col, Card, FormGroup, Form, FormControl } from 'react-bootstrap';
+import { Container, Table, Button, Nav, Navbar, Card, Form} from 'react-bootstrap';
 import {Link, navigate} from '@reach/router';
 import Search from './Search';
 
@@ -90,17 +90,21 @@ const NewOrder = (props) => {
     }
 
     return (
-        <div>
+        <Container className="mainContainer">
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="/main">Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/main">Main Page</Nav.Link>
-                    <Nav.Link href={"/customers/" + id + "/history"}>Return To History</Nav.Link>
+                    <Button variant="outline-dark"><Link to="/main">Main Page</Link></Button>
+                    <Button variant="outline-dark"><Link to={"/customers/" + id + "/history"}>Customer History</Link></Button>
                 </Nav>
                 <Search searchQuery={searchQuery} onChange={updateInput} />
             </Navbar>
-            <h3>Order form for {customer.firstName}</h3>
             <Card className='modularForm'>
+                <Card.Header>
+                    <Card.Title className="text-center">
+                        Order form for {customer.firstName}
+                    </Card.Title>
+                </Card.Header>
                 <Card.Body>
                     <Form inline>
                         <Form.Group>
@@ -116,7 +120,7 @@ const NewOrder = (props) => {
                             <Form.Control  className="mb-2 mr-sm-2" readOnly value={order.quantity} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label className="mb-2 mr-sm-5">
+                            <Form.Label className="mb-2 mr-sm-3">
                                 Total Price: ${!order.price ? 0 : order.price * order.quantity}
                             </Form.Label>
                         </Form.Group>
@@ -143,7 +147,8 @@ const NewOrder = (props) => {
                             return (
                                 <tr key={idx}><td>{product.number}</td>
                                 <td>{product.name}</td><td>{product.price}</td>
-                                <td><Form.Control as="select" onChange={(e) => setQuantity(e.target.value)}>
+                                <td><Form.Control as="select" defaultValue="Choose..." onChange={(e) => setQuantity(e.target.value)}>
+                                    <option value={0}>Choose Qty</option>
                                     <option value={1}>1</option>
                                     <option value={2}>2</option>
                                     <option value={3}>3</option>
@@ -162,7 +167,7 @@ const NewOrder = (props) => {
                     }
                 </tbody>
             </Table>
-        </div>
+        </Container>
     )
 }
 export default NewOrder;

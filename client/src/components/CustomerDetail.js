@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Link, navigate} from '@reach/router';
-import {Container, Card, Row, Col, Button, Table, Nav, Navbar, Form, FormControl, NavDropdown} from 'react-bootstrap';
+import {Link} from '@reach/router';
+import {Container, Button, Table, Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import Search from '../components/Search'
 
 
@@ -73,7 +73,7 @@ const CustomerDetail = (props) => {
                     </NavDropdown>
                 <Nav className="mr-auto">
                     <Button variant="outline-dark"><Link to={'/customers/' + id + '/new_order'} state={{favorite: false}}> New Order </Link></Button>
-                    <Nav.Link href="/main">Return Home</Nav.Link>
+                    <Button variant="outline-dark"><Link to="/main">Return Home</Link></Button>
                 </Nav>
                 <Navbar.Brand>Order History for {customer.firstName}</Navbar.Brand>
                 <Search searchQuery={searchQuery} onChange={updateInput} />

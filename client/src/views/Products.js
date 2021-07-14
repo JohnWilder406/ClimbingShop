@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Card, Button, Row, Col, Form, Navbar, Nav, FormControl } from 'react-bootstrap';
-import {Link, navigate} from '@reach/router';
+import { Table, Button, Navbar, Nav, Container } from 'react-bootstrap';
+import {Link} from '@reach/router';
 import axios from 'axios';
 import Logout from '../components/Logout';
 import Search from '../components/Search';
@@ -32,19 +32,18 @@ const Products = (props) => {
     }
 
     return (
-        <div>
-            <h1>Product Page Testing</h1>
+        <Container className="mainContainer">
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/products/add">Add Product</Nav.Link>
-                    <Nav.Link href="/main">Customer Database</Nav.Link>
-                    <Logout />
+                    <Button variant="outline-dark"><Link to="/products/add">Add Product</Link></Button>
+                    <Button variant="outline-dark"><Link to="/main">Main Page</Link></Button>
                 </Nav>
+                <Logout />
                 <Search searchQuery={searchQuery} onChange={updateInput} />
             </Navbar>
 
-            <Table bordered striped>
+            <Table bordered striped hover>
                 <thead>
                     <tr>
                         <td>Product Number</td>
@@ -64,7 +63,7 @@ const Products = (props) => {
                     }
                 </tbody>
             </Table>
-        </div>
+        </Container>
     )
 }
 

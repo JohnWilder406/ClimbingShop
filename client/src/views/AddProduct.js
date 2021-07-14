@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link, navigate} from '@reach/router';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Nav, Navbar, Button} from 'react-bootstrap';
 import ModularForm from '../components/Form';
 import numberGen from '../components/number';
 
 const AddProduct = (props) => {
-    const [prodNumber, setProdNumber] = useState()
+    const [prodNumber, setProdNumber] = useState(0)
     const [errors, setErrors] = useState({});
     const [product, setProduct] = useState({
         name: "",
@@ -44,7 +44,14 @@ const AddProduct = (props) => {
     }
 
     return (
-        <Container>
+        <Container className="mainContainer">
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand href="/main">Bodie's Climbing</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <Button variant="outline-dark"><Link to="/main">Return Home</Link></Button>
+                    <Button variant="outline-dark"><Link to="/products">Product Database</Link></Button>
+                </Nav>
+            </Navbar>
             <ModularForm idnumber={prodNumber} object={product} setObject={setProduct} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Product"} inventory={true}/>
         </Container>
     )

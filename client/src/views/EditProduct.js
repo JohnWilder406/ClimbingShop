@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, navigate } from '@reach/router'; 
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Button, Navbar, Nav } from 'react-bootstrap';
 import ModularForm from '../components/Form';
 import DeleteButton from '../components/DeleteButton';
 
@@ -46,8 +46,15 @@ const EditProduct = (props) => {
 
     return (
         <Container>
-            <ModularForm object={product} setObject={setProduct} errors={errors} handleSubmit={handleSubmit} submitLabel={"Edit Product"} inventory={true} />
-            <DeleteButton id={id} afterDeleteHandler={afterDeleteHandler} deleteLabel={'Delete Product'} mongoLabel={'products'} />
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <Button variant="outline-dark"><Link to="/main">Return Home</Link></Button>
+                    <Button variant="outline-dark"><Link to="/products">Product Database</Link></Button>
+                </Nav>
+                <DeleteButton id={id} afterDeleteHandler={afterDeleteHandler} deleteLabel={'Delete Product'} mongoLabel={'products'} />
+            </Navbar>
+            <ModularForm object={product} setObject={setProduct} errors={errors} handleSubmit={handleSubmit} submitLabel={"Edit Product"} inventory={true} idnumber={product.number}/>
         </Container>
     )
 }

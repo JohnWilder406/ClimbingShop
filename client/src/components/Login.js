@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Card, Form, Button, Row, Col, Container, Image} from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Card, Form, Button, Row, Col, Container} from 'react-bootstrap';
 import axios from 'axios'
 import { Link, navigate } from '@reach/router';
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import {Link, navigate} from '@reach/router'
-import { Container, Navbar, Nav, Row, Col } from 'react-bootstrap';
+import { Container, Navbar, Nav, Button} from 'react-bootstrap';
 import ModularForm from '../components/Form';
 import numberGen from '../components/number';
 
@@ -48,11 +48,11 @@ const AddCustomer = (props) => {
 
     return (
         <Container className="mainContainer">
-        <Navbar bg="dark" variant="dark">
+            <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="/main">Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/main">Main Page</Nav.Link>
-                    <Nav.Link href="/products">Product Database</Nav.Link>
+                    <Button variant="outline-dark"><Link to="/main">Main Page</Link></Button>
+                    <Button variant="outline-dark"><Link to="/products">Product Database</Link></Button>
                 </Nav>
             </Navbar>
             <ModularForm idnumber={custNumber} object={customer} setObject={setCustomer} errors={errors} handleSubmit={handleSubmit} submitLabel={"Add Customer"} inventory={false}/>
