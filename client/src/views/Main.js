@@ -44,9 +44,9 @@ const Main = (props) => {
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/customers/add">New Customer</Nav.Link>
-                    <Nav.Link href="/products/add">New Product</Nav.Link>
-                    <Nav.Link href="/products">Product Database</Nav.Link>
+                    <Button variant="outline-dark"><Link to="/customers/add">New Customer</Link></Button>
+                    <Button variant="outline-dark"><Link to="/products/add">New Product</Link></Button>
+                    <Button variant="outline-dark"><Link to="/products">Product Database</Link></Button>
                 </Nav>
                 <Logout />
                 <Search searchQuery={searchQuery} onChange={updateInput} />

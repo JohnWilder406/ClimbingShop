@@ -37,7 +37,7 @@ const ModularForm = (props) => {
                             <Form.Control
                                 type="text"
                                 name={inventory ? "name" : "firstName"}
-                                value={inventory ? object.name : object.firstName}
+                                value={inventory ? object.name : object.firstName ? object.firstName : ""}
                                 onChange={(e) => inputChange(e)} />
                             {
                                 errors.firstName ? <span className="error">{errors.firstName.message}</span> : 
