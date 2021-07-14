@@ -14,6 +14,8 @@ const Register= () => {
         confirmPassword: "",
     })
 
+    //handles input changes on Registration form.
+
     const handleChange = (e) => {
         setUser({
             ...user,
@@ -21,6 +23,7 @@ const Register= () => {
         })
     }
 
+    //registration function
     const register = (e) => {
         e.preventDefault();
 

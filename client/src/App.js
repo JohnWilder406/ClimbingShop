@@ -16,6 +16,7 @@ import NewOrder from './components/NewOrder';
 
 
 function App() {
+  //protected path token (true allows entry to site, false keeps you at Login or Registration page)
   const [token, setToken] = useState(false);
 
   return (
