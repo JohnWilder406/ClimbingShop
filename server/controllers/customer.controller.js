@@ -36,6 +36,8 @@ module.exports.updateCustomer = (req, res) => {
         .catch(err => res.json(err))
 }
 
+//controller to directly push into order array in Customer Schema rather than using state and spread operator on the front end to replace the array with a copy + new order
+
 module.exports.createOrder = (req, res) => {
     Customers.updateOne({'_id': req.params.id},
         {$push: {
@@ -44,6 +46,8 @@ module.exports.createOrder = (req, res) => {
         .then(updatedOrder => res.json(updatedOrder))
         .catch(err => res.json(err))
 }
+
+// controller that runs the favorite/unfavorite for each order 
 
 module.exports.updateCustomerOrder = (req, res) => {
     Customers.updateOne({'orders._id': req.params.orderid},
