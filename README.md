@@ -11,6 +11,7 @@ Project Goals (New Skills I have not done before):
 - Push to Array inside Customer Entry
 - Add Favorite functionality to Customer Order Array
 - Add Favorite Re-Order functionality to Customer Detail/Order Page
+- Pop up error message modal for Login Page added
 
 Project Features:
 - Login/Registration page (JSON WebToken)
@@ -20,4 +21,4 @@ Project Features:
 - CRUD functionality for Customer DB
 - CRUD functionality for Products DB
 - Single Modular Form Component for Customer and Products Add & Edit Components
-- Pop up error message modal for Login Page added
+
