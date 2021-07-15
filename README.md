@@ -20,3 +20,4 @@ Project Features:
 - CRUD functionality for Customer DB
 - CRUD functionality for Products DB
 - Single Modular Form Component for Customer and Products Add & Edit Components
+- Pop up error message modal for Login Page added
