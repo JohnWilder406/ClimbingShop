@@ -5,6 +5,13 @@ import axios from 'axios';
 import Logout from '../components/Logout';
 import Search from '../components/Search';
 
+//sort function for products display
+function Sort(array) {
+    const sorted = array.sort((a,b) => (a.name > b.name) ? 1 : -1)
+
+    return sorted
+}
+
 const Products = (props) => {
     const [products, setProducts] = useState([]);
     const [searchQuery, setSearchQuery] = useState();
@@ -31,6 +38,8 @@ const Products = (props) => {
         setProducts(filtered);
     }
 
+    const sortProducts = Sort(products)
+
     return (
         <Container className="mainContainer">
             <Navbar bg="dark" variant="dark">
@@ -55,7 +64,7 @@ const Products = (props) => {
                 </thead>
                 <tbody>
                     {
-                        products.map((product, idx) => {
+                        sortProducts.map((product, idx) => {
                             return (
                                 <tr key={idx}><td>{product.number}</td><td>{product.name}</td><td>{product.price}</td><td>{product.description}</td><td><Button variant="none"><Link to={'/products/' + product._id + '/edit'}>Edit</Link></Button></td></tr>
                             )

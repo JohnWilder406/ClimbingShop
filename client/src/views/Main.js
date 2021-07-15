@@ -6,6 +6,13 @@ import Logout from '../components/Logout';
 import Search from '../components/Search';
 import number from '../components/number';
 
+//sorting function for displaying customers
+function Sort(array) {
+    const sorted = array.sort((a,b) => (a.firstName > b.firstName) ? 1 : -1)
+
+    return sorted
+}
+
 const Main = (props) => {
     const [customers, setCustomers] = useState([]);
     const [searchQuery, setSearchQuery] = useState();
@@ -39,6 +46,8 @@ const Main = (props) => {
         setCustomers(filtered)
     }
 
+    const sortCustomers = Sort(customers)
+
     return (
         <Container className="mainContainer">
             <Navbar bg="dark" variant="dark">
@@ -64,7 +73,7 @@ const Main = (props) => {
                         </thead>
                         <tbody>
                             {
-                                customers.map((customer, idx) => {
+                                sortCustomers.map((customer, idx) => {
                                     return (
                                         <tr key={idx}><td>{customer.number}</td><td>{customer.firstName +' '+ customer.lastName}</td><td>{customer.orders.length}</td><td><Button variant="none"><Link to={'/customers/' + customer._id + '/new_order'}>New Order</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/history'}>View Orders</Link></Button><Button variant="none"><Link to={'/customers/' + customer._id + '/edit'}>Edit Customer</Link></Button></td></tr>
                                     )

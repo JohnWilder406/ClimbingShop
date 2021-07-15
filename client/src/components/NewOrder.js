@@ -92,7 +92,7 @@ const NewOrder = (props) => {
     return (
         <Container className="mainContainer">
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/main">Bodie's Climbing</Navbar.Brand>
+                <Navbar.Brand>Bodie's Climbing</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Button variant="outline-dark"><Link to="/main">Main Page</Link></Button>
                     <Button variant="outline-dark"><Link to={"/customers/" + id + "/history"}>Customer History</Link></Button>
