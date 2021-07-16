@@ -24,7 +24,7 @@ const ModularForm = (props) => {
                         </Form.Label>
                         <Col sm={2}>
                             <Form.Control 
-                            readOnly 
+                            readOnly plaintext
                             name={inventory ? "custnumber" : "prodnumber"}
                             value={idnumber} />
                         </Col>
