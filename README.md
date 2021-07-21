@@ -22,3 +22,5 @@ Project Features:
 - CRUD functionality for Products DB
 - Single Modular Form Component for Customer and Products Add & Edit Components
 
+Deployed at:
+http://18.219.31.189/
